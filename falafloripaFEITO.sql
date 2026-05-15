@@ -13,9 +13,9 @@ CREATE TABLE IF NOT EXISTS usuarios (
     nome VARCHAR(255) NOT NULL,
     email VARCHAR(255) NOT NULL,
     senha VARCHAR(255) NOT NULL,
-    foto_url VARCHAR(255),
+    foto_url LONGBLOB,
     data_hora DATETIME,
-    bairro_id INT, -- Corrigido para INT para o relacionamento
+    bairro_id INT, 
     PRIMARY KEY (id),
     CONSTRAINT fk_usuario_bairro FOREIGN KEY (bairro_id) REFERENCES bairros (id_bairro)
 );
@@ -48,6 +48,7 @@ CREATE TABLE IF NOT EXISTS comentarios (
     texto TEXT NOT NULL,
     usuario_id INT NOT NULL,
     publicacao_id INT NOT NULL,
+    data_hora DATETIME DEFAULT CURRENT_TIMESTAMP,
     PRIMARY KEY (id),
     CONSTRAINT fk_comentario_usuario FOREIGN KEY (usuario_id) REFERENCES usuarios (id),
     CONSTRAINT fk_comentario_publicacao FOREIGN KEY (publicacao_id) REFERENCES publicacoes (id)
@@ -67,10 +68,22 @@ INSERT INTO bairros (nome_bairro, regiao) VALUES
 
 INSERT INTO usuarios (id, nome, email, senha, foto_url, data_hora, bairro_id) VALUES 
 (1, 'Prof. Santiago', 'professorsantiago@senai.com', '12345', 'profsant.png', '2026-05-04 13:45:01', 7),
-(2, 'Prof. Wigor', 'professorwigor@senai.com', '12345', 'profwigor.png', '2026-05-04 13:45:01', 8),
-(3, 'Prof. Luan', 'professorluan@senai.com', '12345', 'prof.luan', '2026-05-04 13:45:01', 1);
+(2, 'Prof. Wygor', 'professorwigor@senai.com', '12345', 'profwigor.png', '2026-05-04 13:45:01', 8),
+(3, 'Prof. Luan', 'professorluan@senai.com', '12345', 'profluan.png', '2026-05-04 13:45:01', 1);
 
 INSERT INTO publicacoes (id, titulo, info_A, info_B, info_C, data_hora, usuario_id, bairro_id) VALUES 
 (1, 'nome tipo A', 'aaa', '111', '0,01', '2026-05-04 13:45:01', 1, 7),
 (2, 'nome tipo B', 'bbb', '222', '0,01', '2026-05-05 13:45:01', 2, 8),
 (3, 'nome tipo C', 'ccc', '333', '0,01', '2026-05-06 13:45:01', 3, 1);
+
+/*adicionei para n dar likes duplicados no mesmo post*/
+
+ALTER TABLE curtidas
+ADD CONSTRAINT unique_curtida
+UNIQUE(usuario_id, publicacao_id);
+
+/*adicionei para um usuário poder usar somente 1 email por perfil*/
+
+ALTER TABLE usuarios
+ADD CONSTRAINT unique_email
+UNIQUE(email);
