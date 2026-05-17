@@ -180,7 +180,7 @@ exports.criarComentario = (req, res) => {
     const sql = `
         INSERT INTO comentarios
         (
-            texto,
+            conteudo,
             usuario_id,
             publicacao_id
         )
@@ -190,7 +190,7 @@ exports.criarComentario = (req, res) => {
     db.query(
         sql,
         [
-            texto,
+            conteudo,
             usuario_id,
             publicacao_id
         ],

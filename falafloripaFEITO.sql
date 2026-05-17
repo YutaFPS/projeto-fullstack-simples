@@ -16,7 +16,7 @@ CREATE TABLE bairros (
 );
 
 CREATE TABLE usuarios (
-    id_usuario INT NOT NULL AUTO_INCREMENT,
+    id INT NOT NULL AUTO_INCREMENT,
     nome VARCHAR(255) NOT NULL,
     email VARCHAR(255) NOT NULL,
     senha VARCHAR(255) NOT NULL,
@@ -24,7 +24,7 @@ CREATE TABLE usuarios (
     data_hora DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
     bairro_id INT DEFAULT NULL,
 
-    PRIMARY KEY (id_usuario),
+    PRIMARY KEY (id),
 
     UNIQUE KEY uq_usuarios_email (email),
 
@@ -55,7 +55,7 @@ CREATE TABLE publicacoes (
 
     CONSTRAINT fk_publicacoes_usuarios
         FOREIGN KEY (usuario_id)
-        REFERENCES usuarios(id_usuario)
+        REFERENCES usuarios(id)
         ON DELETE CASCADE,
 
     CONSTRAINT fk_publicacoes_bairros
@@ -89,7 +89,7 @@ CREATE TABLE comentarios (
 
     CONSTRAINT fk_comentarios_usuarios
         FOREIGN KEY (usuario_id)
-        REFERENCES usuarios(id_usuario)
+        REFERENCES usuarios(id)
         ON DELETE CASCADE
 
 );
@@ -112,7 +112,7 @@ CREATE TABLE curtidas (
 
     CONSTRAINT fk_curtidas_usuarios
         FOREIGN KEY (usuario_id)
-        REFERENCES usuarios(id_usuario)
+        REFERENCES usuarios(id)
         ON DELETE CASCADE,
 
     CONSTRAINT fk_curtidas_publicacoes
@@ -134,7 +134,7 @@ INSERT INTO bairros (nome_bairro, regiao) VALUES
 ('Coqueiros', 'oeste_continente'),
 ('Estreito', 'oeste_continente');
 
-INSERT INTO usuarios (id_usuario, nome, email, senha, foto, data_hora, bairro_id) VALUES
+INSERT INTO usuarios (id, nome, email, senha, foto, data_hora, bairro_id) VALUES
 (1, 'Prof. Santusuariosusuariosiago', 'professorsantiago@senai.com', 12345, 'profsant.png', '2026-05-04 13:45:01', 7),
 (2, 'Prof. Wygor', 'professorwygor@senai.com', 12345, 'profwygor.png', '2026-05-04 13:45:01', 8),
 (3, 'Prof. Luan', 'professorluan@senai.com', 12345, 'profluan.png', '2026-05-04 13:45:01', 1);

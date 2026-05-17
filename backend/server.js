@@ -12,6 +12,10 @@ app.use(express.json());
 
 app.use('/api', rotas);
 
-app.listen(3000, () => {
-    console.log('Servidor Online na porta 3000');
+const PORT = process.env.PORT || 3000;
+
+app.listen(PORT, () => {
+    console.log(`Servidor Online na porta ${PORT}`);
 });
+
+// server.js para rodar o servidor ;)
